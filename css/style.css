@@ -1,0 +1,27 @@
+h1, h2, h3, h4{
+    text-align:center;
+}
+
+img {
+    width: inherit;
+    height: inherit;
+}
+
+md-input-container.md-input-focused{
+    color: #000 !important;
+}
+
+md-select{
+    color: #000;
+}
+
+div.overlay{
+    position: absolute;
+    width:100%;
+    height:100%;
+    opacity:0.8;
+}
+
+div.overlay:hover{
+    opacity:0;
+}

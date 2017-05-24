@@ -1,0 +1,11 @@
+﻿{
+  "default": {
+    "habitability": 1.0
+  },
+  "attacker": {
+    "habitability":  0.6
+  },
+  "defender": {
+
+  }
+}
