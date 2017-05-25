@@ -36,6 +36,10 @@
     </md-toolbar>
 
     <div layout="row">
+        <!--
+            MILITARY SIDENAV
+                Contains info and buttons for units
+        -->
         <md-sidenav md-is-locked-open="true" md-colors="{background: 'default-primary-hue-1'}" class="md-whiteframe-4dp">
             <!--
                 FACTION BUTTONS
@@ -64,9 +68,9 @@
             <div layout="row" style="min-height:300px;">
                 <!-- Defender -->
                 <md-card md-colors="{background: 'default-primary-hue-2'}" flex>
-                    <img ng-src="data:image/svg+xml;utf8,{{curTile.units.defender.svg.defender}}" ng-show="defender.show" class="md-card-image padded" alt="image caption">
+                    <img ng-src="data:image/svg+xml;utf8,{{curTile.units.defender.svg.defender}}" ng-show="curTile.units.defender.health !== undefined" class="md-card-image padded" alt="image caption">
 
-                    <md-card-content ng-show="defender.show">
+                    <md-card-content ng-show="curTile.units.defender.health !== undefined">
                         <h4>
                             <span>{{curTile.units.defender.faction}}</span> <br>
                             <span>{{curTile.units.defender.class}}</span>
@@ -78,16 +82,16 @@
                         </p>
                     </md-card-content>
 
-                    <md-card-footer ng-show="defender.show">
-                        {{curTile.units.gank.defender}}
+                    <md-card-footer ng-show="curTile.units.defender.health !== undefined">
+                        Card footer
                     </md-card-footer>
                 </md-card>
 
                 <!-- Attacker -->
                 <md-card md-colors="{background: 'default-primary-hue-2'}" flex>
-                    <img ng-src="data:image/svg+xml;utf8,{{curTile.units.attacker.svg.attacker}}" ng-show="attacker.show" class="md-card-image padded" alt="image caption">
+                    <img ng-src="data:image/svg+xml;utf8,{{curTile.units.attacker.svg.attacker}}" ng-show="curTile.units.attacker.health !== undefined" class="md-card-image padded" alt="image caption">
 
-                    <md-card-content ng-show="attacker.show">
+                    <md-card-content ng-show="curTile.units.attacker.health !== undefined">
                         <h4>
                             <span>{{curTile.units.attacker.faction}}</span> <br>
                             <span>{{curTile.units.attacker.class}}</span>
@@ -99,7 +103,7 @@
                         </p>
                     </md-card-content>
 
-                    <md-card-footer ng-show="attacker.show">
+                    <md-card-footer ng-show="curTile.units.attacker.health !== undefined">
                         Card footer
                     </md-card-footer>
                 </md-card>
@@ -129,17 +133,55 @@
             </div>
 
             <div layout="row">
-                <md-card flex>
-                    <md-radio-group layout="row" layout-align="space-between" ng-model="overlay.selected">
-                        <md-radio-button ng-repeat="type in overlay.types" ng-value="type">{{type}}</md-radio-button>
-                    </md-radio-group>
+                <md-card md-colors="{background: 'default-primary-hue-2'}" flex>
+                    <md-input-container md-colors="{background: 'default-accent'}" style="margin: 0;">
+                        <md-select ng-model="overlay.selected" placeholder="Select a state">
+                            <md-option ng-repeat="type in overlay.types" ng-value="type">{{type}}</md-option>
+                        </md-select>
+                    </md-input-container>
                 </md-card>
             </div>
         </md-sidenav>
 
+        <!--
+            CANVAS
+        -->
         <md-content>
             <canvas id="planet" ng-controller="PlanetCtrl" width="600" height="600"></canvas>
         </md-content>
+
+        <!--
+            PLANETARY SIDENAV
+                Contains info and buttons for planet and sim
+        -->
+        <md-sidenav md-is-locked-open="true" md-colors="{background: 'default-primary-hue-1'}" class="md-whiteframe-4dp">
+            <md-card md-colors="{background: 'default-primary-hue-2'}">
+                <h3>Tile Info</h3>
+                <p>
+                    <span>Type: {{curTile.type}}</span> <br>
+                    <span>Pos: {{curTile.pos.x}}, {{curTile.pos.y}}</span>
+                </p>
+
+                <div layout="row">
+                    <md-card md-colors="{background: 'default-primary-hue-3'}" flex>
+                        <h4>Defender</h4>
+                        <p>
+                            <span>Tank: {{curTile.tank.defender | number:2}}</span> <br>
+                            <span>Gank: {{curTile.gank.defender | number:2}}</span>
+                        </p>
+                    </md-card>
+
+                    <md-card md-colors="{background: 'default-primary-hue-3'}" flex>
+                        <h4>Attacker</h4>
+                        <p>
+                            <span>Tank: {{curTile.tank.attacker | number:2}}</span> <br>
+                            <span>Gank: {{curTile.gank.attacker | number:2}}</span>
+                        </p>
+                    </md-card>
+                </div>
+            </md-card>
+            <md-button class="md-raised md-accent" ng-click="pendingUpdate = true">Next Turn</md-button>
+        </md-sidenav>
     </div>
 </body>
 

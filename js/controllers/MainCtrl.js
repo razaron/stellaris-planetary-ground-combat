@@ -2,13 +2,11 @@
     $scope.config = {};
     $scope.defender = {
         units: [],
-        roster: {},
-        show: false
+        roster: {}
     };
     $scope.attacker = {
         units: [],
-        roster: {},
-        show: false
+        roster: {}
     };
 
     $scope.roster = {};
@@ -19,19 +17,19 @@
     $scope.curTile.selected = true;
 
     $scope.overlay = {
-        selected: "none",
-        types: ["none", "tank", "gank"]
+        selected: "defender.tank",
+        types: ["none", "defender.tank", "defender.gank", "attacker.tank", "attacker.gank"]
     };
 
-
+    $scope.pendingUpdate = false;
     $scope.pendingRequests = 6;
 
     ConfigDataFactory.then(function (response) {
         $scope.config = response.data;
 
-        Object.assign($scope.defender, $scope.config.default, $scope.config.defender);
+        _.merge($scope.defender, $scope.config.default, $scope.config.defender);
 
-        Object.assign($scope.attacker, $scope.config.default, $scope.config.attacker);
+        _.merge($scope.attacker, $scope.config.default, $scope.config.attacker);
         $scope.pendingRequests--;
     }, function (error) {
         console.log(error);
@@ -52,8 +50,6 @@
 
         $scope.defender.roster = $scope.roster.default;
         $scope.attacker.roster = $scope.roster.default;
-
-        console.log($scope.defender.roster);
 
         $scope.factionButtons.push(
             {name: "Default", roster: $scope.roster.default},
@@ -244,11 +240,12 @@
 
     $scope.isNumber = function(val) { return typeof val === 'number'; };
     $scope.isObject = function(val) { return typeof val === 'object'; };
+    $scope.isDefined = function(val) { return typeof val !== 'undefined'; };
 
     $scope.selectUnit = function(unitObj, sideObj){
         if(unitObj != sideObj.selected)
             sideObj.selected = unitObj;
         else
-            sideObj.selected = null;
+            sideObj.selected = {};
     }
 });

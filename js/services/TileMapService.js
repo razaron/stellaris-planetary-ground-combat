@@ -26,12 +26,12 @@
                         'defender': {}
                     },
                     'tank': {
-                        'attacker': {},
-                        'defender': {}
+                        'attacker': 0,
+                        'defender': 0
                     },
                     'gank': {
-                        'attacker': {},
-                        'defender': {}
+                        'attacker': 0,
+                        'defender': 0
                     },
                     'exists': true,
                     'selected': false
@@ -55,6 +55,36 @@
             y: (tile.pos.y * this.tileMap.size) + (tile.pos.y * this.tileMap.spacing) + this.tileMap.offset.y
         };
 
+        var fillStyle = "rgb(255,255,255)";
+
+        if (overlay === "defender.gank")
+            fillStyle = "rgb(255,"
+                + Math.floor(255 - (tile.gank.defender * 255))
+                + ","
+                + Math.floor(255 - (tile.gank.defender * 255))
+                + ")";
+
+        if (overlay === "attacker.gank")
+            fillStyle = "rgb(255,"
+                + Math.floor(255 - (tile.gank.attacker * 255))
+                + ","
+                + Math.floor(255 - (tile.gank.attacker * 255))
+                + ")";
+
+        if (overlay === "defender.tank")
+            fillStyle = "rgb("
+                + Math.floor(255 - (tile.tank.defender * 255))
+                + ","
+                + Math.floor(255 - (tile.tank.defender * 255))
+                + ",255)";
+                
+        if (overlay === "attacker.tank")
+            fillStyle = "rgb("
+                + Math.floor(255 - (tile.tank.attacker * 255))
+                + ","
+                + Math.floor(255 - (tile.tank.attacker * 255))
+                + ",255)";
+
         CanvasService.drawRect(
             {
                 x: tOrigin.x,
@@ -64,7 +94,7 @@
                 x: this.tileMap.size,
                 y: this.tileMap.size
             },
-            "rgb(100,100,100)",
+            fillStyle,
             (tile.selected) ? "#fff" : "#000",
             (tile.selected) ? "6" : "4"
         );
@@ -88,12 +118,14 @@
             src,
             {
                 x: tOrigin.x + (this.tileMap.size * (0.8 - 0.48)) / 2,
-                y: tOrigin.y + ((attacker) ? 0 : this.tileMap.size * 0.5) + (this.tileMap.size * (0.5 - 0.3)) / 2
+                y: tOrigin.y + ((attacker) ? 0 : this.tileMap.size * 0.5) + (this.tileMap.size * (0.5 - 0.3)) / 2,
+                foo: unit.curHealth / unit.health
             },
             {
                 x: 0.48 * this.tileMap.size,
                 y: 0.30 * this.tileMap.size
-            }
+            },
+            unit.svg
         );
 
         /* draw health bar */

@@ -1,4 +1,10 @@
-﻿app.service("CanvasService", function () {
+﻿/**
+ * @ngdoc controller
+ * @name dashboard.controller:ControllerName
+ * @description
+ * A description of the controller, service or filter
+ */
+app.service("CanvasService", function () {
     this.canvas;
     this.context;
 
@@ -14,7 +20,7 @@
         return this.context;
     };
 
-    this.drawSVG = function (src, pos, dim) {
+    this.drawSVG = function (src, pos, dim, testObj) {
         var x = pos.x * this.canvas.width / 100,
             y = pos.y * this.canvas.height / 100;
 
@@ -26,6 +32,8 @@
         img.ctx = this.context;
 
         img.onload = function () {
+            if(angular.equals(testObj, {})) return;
+
             this.ctx.drawImage(img, x, y, w, h);
         };
     };

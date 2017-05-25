@@ -8,7 +8,7 @@ var app = angular.module('groundCombat', ['ngMaterial'])
         'hue-2': "A400",
         'hue-3': "A700"
     })
-    .accentPalette('brown', {
+    .accentPalette('orange', {
     })
     .warnPalette('red', {
     })
