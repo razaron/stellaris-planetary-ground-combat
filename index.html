@@ -65,7 +65,7 @@
             <!--
                 UNIT CARDS    
             -->
-            <div layout="row" style="min-height:300px;">
+            <div layout="row" style="min-height:350.92px;">
                 <!-- Defender -->
                 <md-card md-colors="{background: 'default-primary-hue-2'}" flex>
                     <img ng-src="data:image/svg+xml;utf8,{{curTile.units.defender.svg.defender}}" ng-show="curTile.units.defender.health !== undefined" class="md-card-image padded" alt="image caption">
@@ -79,6 +79,11 @@
                         <p>
                             <span>HP: {{curTile.units.defender.curHealth | number:0}} / {{curTile.units.defender.health | number:0}}</span> <br>
                             <span>MP: {{curTile.units.defender.curMorale | number:0}} / {{curTile.units.defender.morale | number:0}}</span>
+                        </p>
+
+                        <p>
+                            <span>HD: {{calcDamage(curTile.units.defender).hDamage | number:1}}</span> <br>
+                            <span>MD: {{calcDamage(curTile.units.defender).mDamage | number:1}}</span>
                         </p>
                     </md-card-content>
 
@@ -100,6 +105,11 @@
                         <p>
                             <span>HP: {{curTile.units.attacker.curHealth | number:0}} / {{curTile.units.attacker.health | number:0}}</span> <br>
                             <span>MP: {{curTile.units.attacker.curMorale | number:0}} / {{curTile.units.attacker.morale | number:0}}</span>
+                        </p>
+
+                        <p>
+                            <span>HD: {{calcDamage(curTile.units.attacker).hDamage | number:1}}</span> <br>
+                            <span>MD: {{calcDamage(curTile.units.attacker).mDamage | number:1}}</span>
                         </p>
                     </md-card-content>
 
@@ -141,6 +151,10 @@
                     </md-input-container>
                 </md-card>
             </div>
+            <md-switch ng-model="isRunning" aria-label="Run Sim?">
+                Run Sim
+            </md-switch>
+            {{turnCounter}}
         </md-sidenav>
 
         <!--
@@ -166,6 +180,7 @@
                     <md-card md-colors="{background: 'default-primary-hue-3'}" flex>
                         <h4>Defender</h4>
                         <p>
+                            <span>onPlanet: {{defender.units.length}}</span> <br>
                             <span>Tank: {{curTile.tank.defender | number:2}}</span> <br>
                             <span>Gank: {{curTile.gank.defender | number:2}}</span>
                         </p>
@@ -174,13 +189,30 @@
                     <md-card md-colors="{background: 'default-primary-hue-3'}" flex>
                         <h4>Attacker</h4>
                         <p>
+                            <span>onPlanet: {{attacker.units.length}}</span> <br>
                             <span>Tank: {{curTile.tank.attacker | number:2}}</span> <br>
                             <span>Gank: {{curTile.gank.attacker | number:2}}</span>
                         </p>
                     </md-card>
                 </div>
             </md-card>
-            <md-button class="md-raised md-accent" ng-click="pendingUpdate = true">Next Turn</md-button>
+            <md-card md-colors="{background: 'default-primary-hue-2'}">
+                <md-grid-list md-cols="5" md-row-height="5:3" mg-gutter="5em">
+                    <md-grid-tile ng-if="attacker.landingUnits.length === 0">
+
+                    </md-grid-tile>
+                    <md-grid-tile ng-repeat="unit in attacker.landingUnits" ng-if="isObject(unit)">
+                        <img ng-src="data:image/svg+xml,{{unit.svg.attacker}}" aria-label="{{unit.faction}} {{unit.class}}">
+                    </md-grid-tile>
+                </md-grid-list>
+            </md-card>
+            <md-card md-colors="{background: 'default-primary-hue-2'}">
+                <md-grid-list md-cols="5" md-row-height="5:3" mg-gutter="5em">
+                    <md-grid-tile ng-repeat="unit in attacker.orbitingUnits" ng-if="isObject(unit)">
+                        <img ng-src="data:image/svg+xml,{{unit.svg.attacker}}" aria-label="{{unit.faction}} {{unit.class}}">
+                    </md-grid-tile>
+                </md-grid-list>
+            </md-card>
         </md-sidenav>
     </div>
 </body>

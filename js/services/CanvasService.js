@@ -20,7 +20,7 @@ app.service("CanvasService", function () {
         return this.context;
     };
 
-    this.drawSVG = function (src, pos, dim, testObj) {
+    this.drawSVG = function (src, pos, dim, testCallback = false) {
         var x = pos.x * this.canvas.width / 100,
             y = pos.y * this.canvas.height / 100;
 
@@ -32,7 +32,7 @@ app.service("CanvasService", function () {
         img.ctx = this.context;
 
         img.onload = function () {
-            if(angular.equals(testObj, {})) return;
+            if(testCallback && testCallback()) return;
 
             this.ctx.drawImage(img, x, y, w, h);
         };
