@@ -12,10 +12,13 @@
     };
 
     this.initTileMap = function (offset, size) {
-        CanvasService.initContext('planet', '#ff0000')
+        if(!CanvasService.canvas)
+            CanvasService.initContext('planet', '#ff0000')
+    
         this.tileMap.offset.x = offset.x;
         this.tileMap.offset.y = offset.y;
         this.tileMap.size = size;
+        this.tileMap.map = [];
 
         for (var y = 0; y < 5; y++) {
             for (var x = 0; x < 5; x++) {
@@ -77,7 +80,7 @@
                 + ","
                 + Math.floor(255 - (tile.tank.defender * 255))
                 + ",255)";
-                
+
         if (overlay === "attacker.tank")
             fillStyle = "rgb("
                 + Math.floor(255 - (tile.tank.attacker * 255))
@@ -113,7 +116,7 @@
 
         /* draw unit card */
         var src = (attacker) ? unit.svg.attacker : unit.svg.defender;
-
+        
         CanvasService.drawSVG(
             src,
             {
@@ -125,7 +128,12 @@
                 x: 0.48 * this.tileMap.size,
                 y: 0.30 * this.tileMap.size
             },
-            unit.svg
+            () => {
+                var isDead = angular.equals(unit, {});
+                var isMoved = (attacker) ? this.tileMap.map[pos.y * 5 + pos.x].units.attacker !== unit : this.tileMap.map[pos.y * 5 + pos.x].units.defender !== unit;
+
+                return isDead || isMoved;
+            }
         );
 
         /* draw health bar */

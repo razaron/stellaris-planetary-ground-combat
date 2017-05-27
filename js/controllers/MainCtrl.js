@@ -2,10 +2,14 @@
     $scope.config = {};
     $scope.defender = {
         units: [],
+        orbitingUnits: [],
+        landingUnits: [],
         roster: {}
     };
     $scope.attacker = {
         units: [],
+        orbitingUnits: [],
+        landingUnits: [],
         roster: {}
     };
 
@@ -21,7 +25,7 @@
         types: ["none", "defender.tank", "defender.gank", "attacker.tank", "attacker.gank"]
     };
 
-    $scope.pendingUpdate = false;
+    $scope.isRunning = false;
     $scope.pendingRequests = 6;
 
     ConfigDataFactory.then(function (response) {

@@ -8,7 +8,30 @@
       "morale": 100,
       "hDamage": 10,
       "mDamage": 10,
-      "range": 0,
+      "ranges": [
+        {
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "movement":[
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": -1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": -1
+        }
+      ],
       "svg": {
         "defender": "",
         "attacker": ""
@@ -18,11 +41,34 @@
       "class": "heavy",
       "faction": "default",
       "src": "heavy.svg",
-      "health": 100,
+      "health": 200,
       "morale": 100,
       "hDamage": 10,
       "mDamage": 10,
-      "range": 0,
+      "ranges": [
+        {
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "movement":[
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": -1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": -1
+        }
+      ],
       "svg": {
         "defender": "",
         "attacker": ""
@@ -34,9 +80,32 @@
       "src": "specOps.svg",
       "health": 100,
       "morale": 100,
-      "hDamage": 10,
-      "mDamage": 10,
-      "range": 0,
+      "hDamage": 20,
+      "mDamage": 20,
+      "ranges": [
+        {
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "movement":[
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": -1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": -1
+        }
+      ],
       "svg": {
         "defender": "",
         "attacker": ""
@@ -50,7 +119,62 @@
       "morale": 100,
       "hDamage": 10,
       "mDamage": 10,
-      "range": 1,
+      "ranges": [
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 1
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": -1,
+          "y": 0
+        },
+        {
+          "x": -1,
+          "y": -1
+        },
+        {
+          "x": 0,
+          "y": -1
+        },
+        {
+          "x": 1,
+          "y": -1
+        },
+        {
+          "x": -1,
+          "y": 1
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "movement":[
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": -1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": -1
+        }
+      ],
       "svg": {
         "defender": "",
         "attacker": ""
